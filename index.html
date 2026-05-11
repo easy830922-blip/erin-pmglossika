@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erin Chuang × Glossika PM</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sun: #F4A236;
+  --coral: #E8621C;
+  --mint: #16897A;
+  --blue: #1A6B8A;
+  --ink: #1A1A2E;
+  --paper: #FFFBF5;
+  --paper2: #FEF0E4;
+  --muted: #6B7280;
+  --border: rgba(26,26,46,0.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:15px;
+  line-height:1.75;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* CUSTOM CURSOR */
+.cursor{
+  width:12px;height:12px;
+  background:var(--coral);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform 0.1s,background 0.2s;
+}
+.cursor-ring{
+  width:36px;height:36px;
+  border:2px solid var(--coral);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform 0.15s,width 0.2s,height 0.2s,opacity 0.2s;
+  opacity:0.5;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.9rem 2.5rem;
+  background:rgba(255,251,245,0.88);
+  backdrop-filter:blur(16px);
+  border-bottom:2px solid var(--ink);
+}
+.nav-logo{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:800;font-size:1.05rem;
+  color:var(--ink);text-decoration:none;
+  display:flex;align-items:center;gap:0.5rem;
+  cursor:pointer;pointer-events:all;
+}
+.nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center;}
+.nav-links a{
+  font-size:0.8rem;font-weight:700;
+  color:var(--muted);text-decoration:none;
+  text-transform:uppercase;letter-spacing:0.06em;
+  padding:0.25rem 0;
+  border-bottom:2px solid transparent;
+  transition:color 0.2s,border-color 0.2s;
+  cursor:pointer;pointer-events:all;
+}
+.nav-links a:hover{color:var(--ink);border-color:var(--coral);}
+
+/* LANG TOGGLE */
+.lang-toggle{
+  display:inline-flex;
+  border:2px solid var(--ink);
+  border-radius:100px;
+  overflow:hidden;
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:0.72rem;
+  font-weight:700;
+  cursor:pointer;pointer-events:all;
+  margin-left:0.5rem;
+}
+.lang-btn{
+  padding:0.3rem 0.7rem;
+  background:transparent;
+  color:var(--ink);
+  border:none;
+  cursor:pointer;pointer-events:all;
+  transition:all .2s;
+  font-family:inherit;
+  font-weight:inherit;
+  font-size:inherit;
+}
+.lang-btn.active{
+  background:var(--ink);
+  color:#fff;
+}
+
+/* HAMBURGER */
+.nav-hamburger{
+  display:none;flex-direction:column;gap:5px;cursor:pointer;
+  pointer-events:all;z-index:200;background:none;border:none;padding:4px;
+}
+.nav-hamburger span{display:block;width:24px;height:2px;background:var(--ink);transition:all .3s;}
+.nav-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-hamburger.open span:nth-child(2){opacity:0;}
+.nav-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:6rem 2.5rem 3rem;
+  gap:3rem;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(244,162,54,0.2) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(22,137,122,0.12) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero-squiggle{
+  position:absolute;top:15%;right:0;width:300px;opacity:0.06;
+  animation:float 8s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+.hero-left{position:relative;z-index:1;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.4rem 1rem;
+  background:var(--sun);color:var(--ink);
+  border:2px solid var(--ink);border-radius:100px;
+  font-size:0.75rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.06em;
+  margin-bottom:1.5rem;
+  animation:fadeUp 0.5s ease both;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.hero h1{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:800;
+  font-size:clamp(2.4rem,4.5vw,4rem);
+  line-height:1.1;letter-spacing:-0.02em;
+  margin-bottom:1.2rem;
+  animation:fadeUp 0.5s 0.1s ease both;
+}
+.hero h1 .highlight{
+  display:inline-block;background:var(--sun);
+  padding:0 0.2em;border-radius:4px;
+  border-bottom:3px solid var(--ink);transform:rotate(-1deg);
+}
+.hero h1 .highlight2{
+  display:inline-block;background:var(--coral);color:#fff;
+  padding:0 0.2em;border-radius:4px;transform:rotate(0.5deg);
+}
+.hero-sub{
+  font-size:1rem;color:var(--muted);
+  max-width:480px;margin-bottom:2rem;
+  animation:fadeUp 0.5s 0.2s ease both;
+}
+.hero-cta{display:flex;gap:0.8rem;flex-wrap:wrap;animation:fadeUp 0.5s 0.3s ease both;}
+.btn{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.75rem 1.5rem;
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:700;font-size:0.88rem;
+  border-radius:100px;text-decoration:none;
+  border:2px solid var(--ink);cursor:pointer;pointer-events:all;
+  transition:transform 0.15s,box-shadow 0.15s;
+}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink);}
+.btn-fill{background:var(--coral);color:#fff;}
+.btn-outline{background:transparent;color:var(--ink);}
+
+/* Hero right: stats */
+.hero-right{
+  display:flex;flex-direction:column;gap:1rem;
+  position:relative;z-index:1;
+  animation:fadeUp 0.5s 0.4s ease both;
+}
+.stat-card{
+  background:#fff;border:2px solid var(--ink);
+  border-radius:16px;padding:1.2rem 1.5rem;
+  display:flex;align-items:center;gap:1.2rem;
+  box-shadow:4px 4px 0 var(--ink);
+  transition:transform 0.2s,box-shadow 0.2s;cursor:none;
+}
+.stat-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--ink);}
+.stat-card:nth-child(even){margin-left:1.5rem;}
+.stat-bar{width:5px;min-height:44px;border-radius:3px;flex-shrink:0;}
+.sb-sun{background:var(--sun);}
+.sb-mint{background:var(--mint);}
+.sb-coral{background:var(--coral);}
+.sb-blue{background:var(--blue);}
+.stat-val{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:800;font-size:1.6rem;line-height:1;color:var(--ink);
+}
+.stat-lbl{font-size:0.75rem;color:var(--muted);font-weight:500;margin-top:0.15rem;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* DIVIDER */
+.divider{height:4px;background:repeating-linear-gradient(90deg,var(--ink) 0,var(--ink) 12px,transparent 12px,transparent 20px);margin:0;}
+
+/* SECTION */
+.section{padding:5rem 2.5rem;max-width:1100px;margin:0 auto;position:relative;z-index:1;background:var(--paper);}
+.section-tag{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.72rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.1em;
+  color:var(--coral);margin-bottom:0.75rem;
+}
+.section-tag::before{content:'';width:24px;height:2px;background:var(--coral);}
+.section-title{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:800;font-size:2rem;
+  letter-spacing:-0.02em;margin-bottom:0.5rem;
+}
+
+/* ABOUT ME */
+.about-section{
+  background:var(--paper2);
+  padding:5rem 2.5rem;
+  max-width:none;
+  position:relative;z-index:1;
+}
+.about-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1.6fr;gap:3rem;align-items:start;
+}
+.about-card{
+  background:#fff;border:2px solid var(--ink);
+  border-radius:20px;padding:2rem;
+  box-shadow:4px 4px 0 var(--ink);
+}
+.about-name{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:800;font-size:1.5rem;margin-bottom:0.3rem;
+}
+.about-role{
+  font-size:0.85rem;color:var(--coral);font-weight:600;margin-bottom:1.2rem;
+}
+.about-info{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
+.about-info li{
+  font-size:0.82rem;color:var(--muted);
+  display:flex;align-items:center;gap:0.6rem;
+}
+.about-info-icon{
+  width:28px;height:28px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;font-weight:800;flex-shrink:0;
+  background:var(--paper2);color:var(--ink);
+  border:1.5px solid var(--border);
+}
+.about-text{
+  font-size:0.92rem;line-height:1.9;color:var(--ink);
+}
+.about-text p{margin-bottom:1rem;}
+.about-text strong{color:var(--coral);}
+.about-timeline{
+  display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:1.5rem;
+}
+.about-tl-item{
+  padding:0.4rem 0.9rem;
+  border:1.5px solid var(--border);
+  border-radius:100px;
+  font-size:0.72rem;font-weight:600;
+  color:var(--muted);
+  background:#fff;
+}
+.about-tl-item strong{color:var(--ink);font-weight:700;}
+
+/* COVER LETTER */
+.coverletter-wrap{display:grid;grid-template-columns:2fr 1fr;gap:3rem;align-items:start;}
+.cl-sidebar{position:sticky;top:6rem;}
+.cl-jd-check{
+  background:#fff;border:2px solid var(--ink);
+  border-radius:16px;padding:1.8rem;
+  box-shadow:4px 4px 0 var(--ink);
+}
+.cl-jd-check h3{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:1rem;font-weight:700;margin-bottom:1rem;
+  color:var(--ink);
+}
+.jd-check-item{
+  display:flex;align-items:flex-start;gap:0.6rem;
+  padding:0.5rem 0;
+  border-bottom:1px solid rgba(26,26,46,0.06);
+  font-size:0.8rem;
+}
+.jd-check-item:last-child{border-bottom:none;}
+.jd-check-icon{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--mint);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.65rem;font-weight:800;flex-shrink:0;
+  margin-top:0.1rem;
+}
+.jd-check-text{color:var(--ink);font-weight:500;line-height:1.5;}
+
+.cl-body{
+  background:#fff;border:2px solid var(--ink);
+  border-radius:16px;padding:2.5rem;
+  box-shadow:4px 4px 0 var(--ink);
+  font-size:0.92rem;line-height:1.85;
+}
+.cl-body p{margin-bottom:1rem;}
+.cl-body .cl-greeting{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1rem;}
+.cl-body .cl-sign{margin-top:1.5rem;font-weight:600;}
+.cl-body strong{color:var(--coral);}
+
+/* COVER LETTER MODAL (mobile) */
+.cl-overlay{
+  position:fixed;inset:0;background:rgba(26,26,46,0.6);
+  z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.cl-overlay.open{opacity:1;pointer-events:all;}
+.cl-modal{
+  position:fixed;top:50%;left:50%;z-index:201;
+  transform:translate(-50%,-50%) scale(0.95);
+  width:min(92vw,600px);max-height:85vh;overflow-y:auto;
+  background:#fff;border:2px solid var(--ink);
+  border-radius:20px;padding:2rem;
+  box-shadow:8px 8px 0 var(--ink);
+  opacity:0;pointer-events:none;transition:all .3s;
+}
+.cl-modal.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%) scale(1);}
+.cl-modal-close{
+  position:absolute;top:1rem;right:1rem;
+  width:32px;height:32px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;cursor:pointer;pointer-events:all;
+  transition:background .2s;
+}
+.cl-modal-close:hover{background:var(--coral);color:#fff;}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:2rem;}
+.kpi-card{
+  background:#fff;border:2px solid var(--ink);
+  border-radius:16px;padding:1.5rem;
+  box-shadow:4px 4px 0 var(--ink);
+  transition:transform .2s,box-shadow .2s;cursor:none;
+}
+.kpi-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--ink);}
+.kpi-val{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:800;font-size:2rem;line-height:1;margin-bottom:0.3rem;
+}
+.kpi-label{font-size:0.8rem;color:var(--muted);font-weight:500;}
+.kpi-bar{height:4px;border-radius:2px;margin-top:0.8rem;}
+
+/* PROJECTS */
+.proj-tabs{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.ptab{
+  padding:0.5rem 1.2rem;border:2px solid var(--ink);
+  border-radius:100px;font-size:0.78rem;font-weight:700;
+  background:#fff;cursor:pointer;pointer-events:all;
+  transition:all .15s;white-space:nowrap;
+}
+.ptab:hover{background:var(--paper2);}
+.ptab.active{background:var(--ink);color:#fff;}
+
+.proj-panel{display:none;}
+.proj-panel.active{display:block;animation:fadeUp .35s ease both;}
+.proj-card{
+  background:#fff;border:2px solid var(--ink);border-radius:20px;
+  padding:2rem;box-shadow:4px 4px 0 var(--ink);
+}
+.proj-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1rem;}
+.proj-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.4rem;}
+.proj-role{
+  display:inline-flex;padding:0.25rem 0.8rem;
+  border-radius:100px;font-size:0.7rem;font-weight:700;
+  background:var(--paper2);color:var(--coral);
+  border:1.5px solid rgba(232,98,28,0.3);white-space:nowrap;
+}
+.proj-desc{font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.7;}
+.proj-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.8rem;}
+.proj-metric{
+  background:var(--paper);border:1.5px solid var(--border);
+  border-radius:12px;padding:0.8rem 1rem;text-align:center;
+}
+.proj-metric .pm-val{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.3rem;color:var(--coral);}
+.proj-metric .pm-lbl{font-size:0.7rem;color:var(--muted);}
+
+/* PROJ ARROW NAV */
+.proj-arrow-nav{
+  display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:1.5rem;
+}
+.proj-arrow{
+  width:36px;height:36px;border-radius:50%;
+  border:2px solid var(--ink);background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;cursor:pointer;pointer-events:all;
+  transition:all .15s;
+}
+.proj-arrow:hover:not(:disabled){background:var(--ink);color:#fff;}
+.proj-arrow:disabled{opacity:0.3;cursor:not-allowed;}
+.proj-counter{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:0.85rem;color:var(--muted);}
+
+/* SKILL TREE (replaces JD Fit) */
+.skill-tree-section{background:var(--ink);color:#fff;padding:5rem 2.5rem;border-radius:0;position:relative;z-index:1;}
+.skill-tree-section .section-tag{color:var(--sun);}
+.skill-tree-section .section-tag::before{background:var(--sun);}
+.skill-tree-section .section-title{color:#fff;}
+.skill-tree-desc{
+  font-size:0.88rem;color:rgba(255,255,255,0.55);
+  max-width:600px;margin-bottom:2.5rem;margin-top:0.5rem;
+}
+
+.st-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.5rem;
+}
+.st-card{
+  background:rgba(255,255,255,0.04);
+  border:1.5px solid rgba(255,255,255,0.1);
+  border-radius:16px;padding:1.8rem;
+  transition:transform .15s,border-color .2s;
+}
+.st-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,0.2);}
+.st-card-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.2rem;
+}
+.st-card-title{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:700;font-size:0.95rem;color:#fff;
+}
+.st-card-level{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:800;font-size:0.72rem;
+  padding:0.2rem 0.6rem;
+  border-radius:100px;
+  color:var(--ink);
+}
+.st-bar-wrap{
+  margin-bottom:0.6rem;
+}
+.st-bar-label{
+  display:flex;justify-content:space-between;
+  font-size:0.72rem;color:rgba(255,255,255,0.5);
+  margin-bottom:0.3rem;
+}
+.st-bar-track{
+  height:6px;border-radius:3px;
+  background:rgba(255,255,255,0.08);
+  overflow:hidden;
+}
+.st-bar-fill{
+  height:100%;border-radius:3px;
+  transition:width 1s cubic-bezier(.22,1,.36,1);
+  width:0;
+}
+.st-bar-fill.animated{
+  /* width set inline */
+}
+.st-card-note{
+  font-size:0.75rem;color:rgba(255,255,255,0.4);
+  margin-top:0.8rem;line-height:1.5;
+}
+
+/* SOCIAL GROWTH CHART */
+.chart-wrap{
+  background:#fff;border:2px solid var(--ink);
+  border-radius:16px;padding:1.5rem;
+  box-shadow:4px 4px 0 var(--ink);margin-top:2rem;
+}
+.chart-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;}
+.chart-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1rem;}
+.chart-toggles{display:flex;gap:0.5rem;}
+.chart-toggle{
+  padding:0.3rem 0.8rem;border-radius:100px;
+  font-size:0.72rem;font-weight:700;
+  border:2px solid var(--ink);cursor:pointer;
+  pointer-events:all;transition:all .15s;
+}
+.chart-toggle.on{color:#fff;}
+.chart-toggle.ig{background:var(--coral);border-color:var(--coral);color:#fff;}
+.chart-toggle.ig:not(.on){background:transparent;color:var(--coral);}
+.chart-toggle.th{background:var(--blue);border-color:var(--blue);color:#fff;}
+.chart-toggle.th:not(.on){background:transparent;color:var(--blue);}
+.lc-dot{transition:r .15s;cursor:none;}
+.lc-dot:hover{r:7;}
+.tooltip{
+  position:fixed;background:var(--ink);color:#fff;
+  font-size:0.72rem;font-weight:600;
+  padding:0.3rem 0.7rem;border-radius:8px;
+  pointer-events:none;display:none;z-index:500;
+  white-space:nowrap;
+}
+
+/* SKILLS */
+.sk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:2rem;}
+.sk-card{
+  background:#fff;border:2px solid var(--border);
+  border-radius:16px;padding:1.5rem;
+  border-left:4px solid var(--sk-border,var(--ink));
+  transition:transform .15s;
+}
+.sk-card:hover{transform:translateY(-2px);}
+.sk-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:0.8rem;}
+.sk-chips{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.chip{
+  font-size:0.72rem;font-weight:600;
+  padding:0.25rem 0.7rem;border-radius:100px;
+  border:1.5px solid transparent;
+}
+.chip-coral{background:rgba(232,98,28,0.1);color:var(--coral);border-color:rgba(232,98,28,0.25);}
+.chip-mint{background:rgba(22,137,122,0.1);color:var(--mint);border-color:rgba(22,137,122,0.25);}
+.chip-blue{background:rgba(26,107,138,0.1);color:var(--blue);border-color:rgba(26,107,138,0.25);}
+.chip-sun{background:rgba(244,162,54,0.12);color:#B87A1A;border-color:rgba(244,162,54,0.3);}
+.chip-ink{background:rgba(26,26,46,0.06);color:var(--ink);border-color:rgba(26,26,46,0.15);}
+
+/* FOOTER */
+footer{
+  background:var(--ink);color:#fff;
+  padding:3rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;
+}
+footer h3{font-family:'Bricolage Grotesque',sans-serif;font-size:1.2rem;font-weight:800;}
+footer p{font-size:0.82rem;color:rgba(255,255,255,0.5);margin-top:0.3rem;}
+.footer-links{display:flex;gap:0.8rem;}
+.footer-link{
+  padding:0.5rem 1.2rem;border:2px solid rgba(255,255,255,0.2);
+  border-radius:100px;color:#fff;font-size:0.78rem;font-weight:600;
+  text-decoration:none;transition:all .2s;
+}
+.footer-link:hover{background:var(--coral);border-color:var(--coral);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:all 0.6s cubic-bezier(.22,1,.36,1);visibility:hidden;}
+.reveal.visible{opacity:1;transform:none;visibility:visible;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:0.8rem 1.2rem;}
+  .nav-links{
+    position:fixed;top:0;left:0;right:0;bottom:0;
+    background:var(--paper);flex-direction:column;
+    justify-content:center;align-items:center;gap:2rem;
+    opacity:0;pointer-events:none;transition:opacity .3s;z-index:150;
+  }
+  .nav-links.open{opacity:1;pointer-events:all;}
+  .nav-links a{font-size:1.2rem;}
+  .nav-hamburger{display:flex;}
+  .hero{grid-template-columns:1fr;padding:5rem 1.2rem 2rem;gap:2rem;}
+  .stat-card:nth-child(even){margin-left:0;}
+  .section{padding:3rem 1.2rem;}
+  .about-section{padding:3rem 1.2rem;}
+  .about-inner{grid-template-columns:1fr;}
+  .coverletter-wrap{grid-template-columns:1fr;}
+  .cl-sidebar{position:static;order:2;}
+  .cl-body-desktop{display:none;}
+  .cl-btn-mobile{display:inline-flex !important;}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .proj-metrics{grid-template-columns:1fr 1fr;}
+  .skill-tree-section{padding:3rem 1.2rem;}
+  .st-grid{grid-template-columns:1fr;}
+  .st-card{margin-bottom:0.5rem;}
+  .st-bar-label{font-size:0.72rem;}
+  .st-bar-label span:first-child{max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .sk-grid{grid-template-columns:1fr;}
+  .section-title{font-size:1.5rem;}
+  footer{flex-direction:column;text-align:center;padding:2rem 1.2rem;}
+  .cursor,.cursor-ring{display:none !important;}
+  body{cursor:auto;}
+}
+@media(min-width:769px){
+  .cl-btn-mobile{display:none !important;}
+}
+
+@media(hover:none),(max-width:768px){
+  .stat-card:hover,.kpi-card:hover,.sk-card:hover,.st-card:hover,.btn:hover,.chip:hover{
+    transform:none !important;
+    box-shadow:4px 4px 0 var(--ink) !important;
+  }
+  .st-card:hover{
+    transform:none !important;
+    box-shadow:none !important;
+    border-color:rgba(255,255,255,0.1) !important;
+  }
+  .sk-card:hover{
+    transform:none !important;
+  }
+  .stat-card:active,.kpi-card:active{
+    transform:translate(-1px,-1px) !important;
+    box-shadow:5px 5px 0 var(--ink) !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+<!-- Tooltip -->
+<div class="tooltip" id="tip"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">Erin × Glossika</a>
+  <button class="nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="#about" class="nav-item" data-zh="關於我" data-en="About">關於我</a>
+    <a href="#coverletter" class="nav-item" data-zh="Cover Letter" data-en="Cover Letter">Cover Letter</a>
+    <a href="#kpi" class="nav-item" data-zh="成就數據" data-en="Achievements">成就數據</a>
+    <a href="#projects" class="nav-item" data-zh="產品案例" data-en="Projects">產品案例</a>
+    <a href="#skilltree" class="nav-item" data-zh="技能樹" data-en="Skill Tree">技能樹</a>
+    <a href="#skills" class="nav-item" data-zh="技能" data-en="Skills">技能</a>
+    <div class="lang-toggle" id="langToggle">
+      <button class="lang-btn active" data-lang="zh">中</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <svg class="hero-squiggle" viewBox="0 0 200 200" fill="none"><path d="M40 80Q70 20 100 80T160 80T220 80" stroke="var(--coral)" stroke-width="3" fill="none" opacity="0.4"/><path d="M20 120Q50 60 80 120T140 120T200 120" stroke="var(--mint)" stroke-width="3" fill="none" opacity="0.3"/><path d="M30 160Q60 100 90 160T150 160T210 160" stroke="var(--sun)" stroke-width="2" fill="none" opacity="0.25"/></svg>
+  <div class="hero-left">
+    <div class="hero-badge" data-zh="Applying for Remote Product Manager" data-en="Applying for Remote Product Manager">Applying for Remote Product Manager</div>
+    <h1>
+      <span data-zh="我是" data-en="I'm ">我是</span><span class="highlight">莊淳筑 Erin</span><span data-zh="，" data-en=", ">,</span><br>
+      <span data-zh="用 PM 幫世界" data-en="Helping the world ">用 PM 幫世界</span><span class="highlight2" data-zh="說好每一種語言" data-en="speak every language">說好每一種語言</span>
+    </h1>
+    <p class="hero-sub" data-zh="5 年 PM 與跨職能管理經驗。從國際學校英文教師到 EdTech 產品負責人，一路都在「幫人突破語言」這件事上。現在準備好把這份經驗帶進 Glossika。" data-en="5 years of PM and cross-functional leadership. From bilingual teacher at an international school to EdTech product lead — my career has always been about helping people break through language barriers. Now ready to bring it to Glossika.">
+      5 年 PM 與跨職能管理經驗。從國際學校英文教師到 EdTech 產品負責人，一路都在「幫人突破語言」這件事上。現在準備好把這份經驗帶進 Glossika。
+    </p>
+    <div class="hero-cta">
+      <a href="#coverletter" class="btn btn-fill" data-zh="讀 Cover Letter" data-en="Read Cover Letter">讀 Cover Letter</a>
+      <a href="#skilltree" class="btn btn-outline" data-zh="技能樹" data-en="Skill Tree">技能樹</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="stat-bar sb-coral"></div>
+      <div><div class="stat-val">13+</div><div class="stat-lbl" data-zh="產品從 0→1 交付（AI, SaaS, APP）" data-en="Products shipped 0→1 (AI, SaaS, APP)">產品從 0→1 交付（AI, SaaS, APP）</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-bar sb-mint"></div>
+      <div><div class="stat-val">+40%</div><div class="stat-lbl" data-zh="導入 JIRA/Notion 後交付率提升" data-en="Delivery rate improvement with JIRA/Notion">導入 JIRA/Notion 後交付率提升</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-bar sb-sun"></div>
+      <div><div class="stat-val">3,500+</div><div class="stat-lbl" data-zh="iOS 下載 · 4.6 星 · 上線一年" data-en="iOS downloads · 4.6★ · first year">iOS 下載 · 4.6 星 · 上線一年</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-bar sb-blue"></div>
+      <div><div class="stat-val">24.5K</div><div class="stat-lbl" data-zh="社群 0→24.5K（IG+Threads）12 個月" data-en="Social 0→24.5K (IG+Threads) in 12 months">社群 0→24.5K（IG+Threads）12 個月</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT ME -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-card reveal">
+      <div class="about-name">莊淳筑 Erin Chuang</div>
+      <div class="about-role" data-zh="軟體項目負責人 · 跨職能營運總監" data-en="Software Project Lead · Cross-functional Ops Director">軟體項目負責人 · 跨職能營運總監</div>
+      <ul class="about-info">
+        <li><span class="about-info-icon">5Y</span><span data-zh="PM 與跨職能管理經驗" data-en="PM & cross-functional management">PM 與跨職能管理經驗</span></li>
+        <li><span class="about-info-icon">13+</span><span data-zh="產品從 0→1 交付" data-en="Products shipped from 0→1">產品從 0→1 交付</span></li>
+        <li><span class="about-info-icon">EN</span><span data-zh="TOEIC 850 · 康橋幼兒園雙語導師" data-en="TOEIC 850 · Kindergarten bilingual teacher at Kang Chiao">TOEIC 850 · 康橋幼兒園雙語導師</span></li>
+        <li><span class="about-info-icon">KR</span><span data-zh="韓國交換學生經驗" data-en="Exchange student in Korea">韓國交換學生經驗</span></li>
+        <li><span class="about-info-icon">RW</span><span data-zh="全遠端 · 台北" data-en="Fully remote · Taipei">全遠端 · 台北</span></li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <div class="section-tag" data-zh="關於我" data-en="About Me">關於我</div>
+      <div class="section-title reveal" data-zh="從教室到產品，不變的是幫人突破語言" data-en="From classroom to product — always about breaking language barriers">從教室到產品，不變的是幫人突破語言</div>
+      <div class="about-text" id="aboutText">
+        <p data-zh="我的起點是英文教育——在康橋國際學校擔任三年幼兒園雙語導師，每天帶著孩子從零開始接觸英文，觀察他們最自然的語言學習過程。這不是從數據看學習者，而是蹲下來跟他們一起，理解語言啟蒙的第一步長什麼樣子。" data-en="My starting point was English education — three years as a bilingual kindergarten teacher at Kang Chiao International School, introducing young children to English from scratch every day. I observed the most natural language acquisition process up close. Not from data, but getting down to their level to understand what the very first steps of language learning look like.">我的起點是英文教育——在康橋國際學校擔任三年幼兒園雙語導師，每天帶著孩子從零開始接觸英文，觀察他們最自然的語言學習過程。這不是從數據看學習者，而是蹲下來跟他們一起，理解語言啟蒙的第一步長什麼樣子。</p>
+        <p data-zh="轉型做 PM 後，我在劍橋教育主導了留學平台的從 0 到 1 建置——帶領 10+ 人跨職能團隊，交付 <strong>13 個以上的數位產品</strong>，包含 AI 客服機器人、SaaS CRM、iOS 與 Android APP。導入 JIRA 與 Notion 讓<strong>交付率提升 40%</strong>，外包轉內建讓<strong>開發品質提升 50%</strong>。" data-en="After transitioning to PM, I led a study-abroad platform from 0→1 — managing a 10+ person cross-functional team, delivering <strong>13+ digital products</strong> including AI chatbot, SaaS CRM, and iOS/Android apps. JIRA & Notion drove a <strong>40% improvement in delivery rate</strong>, and in-housing dev boosted <strong>quality by 50%</strong>.">轉型做 PM 後，我在劍橋教育主導了留學平台的從 0 到 1 建置——帶領 10+ 人跨職能團隊，交付 <strong>13 個以上的數位產品</strong>，包含 AI 客服機器人、SaaS CRM、iOS 與 Android APP。導入 JIRA 與 Notion 讓<strong>交付率提升 40%</strong>，外包轉內建讓<strong>開發品質提升 50%</strong>。</p>
+        <p data-zh="我相信 Glossika 需要的不只是一個寫 PRD 的人，而是一個<strong>真正理解語言學習者痛點</strong>、能在精實團隊中什麼都能推動的 PM——這正是我最擅長的工作型態。" data-en="I believe Glossika needs more than a PRD writer — it needs a PM who <strong>truly understands language learners' pain points</strong> and can drive anything forward in a lean team. That's exactly how I work best.">我相信 Glossika 需要的不只是一個寫 PRD 的人，而是一個<strong>真正理解語言學習者痛點</strong>、能在精實團隊中什麼都能推動的 PM——這正是我最擅長的工作型態。</p>
+      </div>
+      <div class="about-timeline">
+        <div class="about-tl-item"><strong data-zh="2019–2022" data-en="2019–2022">2019–2022</strong> <span data-zh="康橋國際學校 · 幼兒園雙語導師" data-en="Kang Chiao · Kindergarten Teacher">康橋國際學校 · 幼兒園雙語導師</span></div>
+        <div class="about-tl-item"><strong data-zh="2022–2023" data-en="2022–2023">2022–2023</strong> <span data-zh="幼兒教學 APP · PM" data-en="Children's Learning APP · PM">幼兒教學 APP · PM</span></div>
+        <div class="about-tl-item"><strong data-zh="2023–2024" data-en="2023–2024">2023–2024</strong> <span data-zh="策略行銷中心 · 運營 PM" data-en="Strategic Marketing · Ops PM">策略行銷中心 · 運營 PM</span></div>
+        <div class="about-tl-item"><strong data-zh="2024" data-en="2024">2024</strong> <span data-zh="金融科技 · 創新研發 PM" data-en="FinTech · Innovation PM">金融科技 · 創新研發 PM</span></div>
+        <div class="about-tl-item"><strong data-zh="2024–now" data-en="2024–now">2024–now</strong> <span data-zh="軟體項目負責人 · 跨職能營運" data-en="Software Lead · Cross-functional Ops">軟體項目負責人 · 跨職能營運</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COVER LETTER -->
+<section class="section" id="coverletter">
+  <div class="section-tag reveal" data-zh="Cover Letter" data-en="Cover Letter">Cover Letter</div>
+  <div class="section-title reveal" data-zh="Erin × Glossika" data-en="Erin × Glossika">Erin × Glossika</div>
+
+  <div class="coverletter-wrap" style="margin-top:2rem;">
+    <!-- Letter Body -->
+    <div class="cl-body cl-body-desktop reveal">
+      <p class="cl-greeting" data-zh="Dear Glossika 招募團隊，" data-en="Dear Glossika Hiring Team,">Dear Glossika 招募團隊，</p>
+      <p data-zh="我是莊淳筑 Erin，正在申請 <strong>Remote Product Manager</strong> 一職。我在 EdTech 領域累積了 5 年產品管理經驗，從幼兒英語教學出發，一路到主導 AI 產品與跨平台開發。Glossika 的使命——<strong>「make real-life communication accessible in every language」</strong>——讓我看到一個能把這些經驗發揮到最大的舞台。" data-en="I'm Erin Chuang, applying for the <strong>Remote Product Manager</strong> position. With 5 years of product management experience in EdTech — from kindergarten English teaching to leading AI products and cross-platform development — Glossika's mission — <strong>"make real-life communication accessible in every language"</strong> — presents the ideal stage to bring all of this together.">我是莊淳筑 Erin，正在申請 <strong>Remote Product Manager</strong> 一職。我在 EdTech 領域累積了 5 年產品管理經驗，從幼兒英語教學出發，一路到主導 AI 產品與跨平台開發。Glossika 的使命——<strong>「make real-life communication accessible in every language」</strong>——讓我看到一個能把這些經驗發揮到最大的舞台。</p>
+      <p data-zh="我的起點是<strong>英文教育</strong>。在康橋國際學校擔任三年幼兒園雙語導師，每天帶著孩子從零開始接觸英文，觀察他們最自然的語言學習過程。這不是從數據看學習者，而是蹲下來跟他們一起，理解語言啟蒙的第一步長什麼樣子。這段經歷成為我後來做 EdTech 產品最底層的同理心。" data-en="My starting point was <strong>English education</strong>. As a bilingual kindergarten teacher at Kang Chiao International School for three years, I helped young children encounter English from scratch every day, observing the most natural language acquisition process up close. This wasn't observing learners through data — it was getting down to their level, understanding what the very first steps of language learning look like. This experience became the foundation of empathy behind every EdTech product I've built since.">我的起點是<strong>英文教育</strong>。在康橋國際學校擔任三年幼兒園雙語導師，每天帶著孩子從零開始接觸英文，觀察他們最自然的語言學習過程。這不是從數據看學習者，而是蹲下來跟他們一起，理解語言啟蒙的第一步長什麼樣子。這段經歷成為我後來做 EdTech 產品最底層的同理心。</p>
+      <p data-zh="轉型做 PM 後，我在劍橋教育主導了 <strong>Studybar 留學平台</strong>的從 0 到 1 建置——<strong>Web + iOS + Android</strong> 全端開發，涵蓋 AI 客服機器人、落點分析、SaaS CRM、社群自動化工具等 <strong>13 個以上的產品</strong>。帶領 10+ 人的跨職能團隊（工程/行銷/設計），導入 JIRA 與 Notion 後<strong>交付率提升 40%</strong>，外包轉內建並建立代碼審查制度讓<strong>開發品質提升 50%</strong>。" data-en="After transitioning to PM, I led the 0→1 build of <strong>Studybar, a study-abroad platform</strong> — <strong>Web + iOS + Android</strong> full-stack, covering AI chatbot, score prediction, SaaS CRM, social automation tools, and <strong>13+ products</strong> total. Leading a 10+ person cross-functional team (engineering/marketing/design), I drove a <strong>40% improvement in delivery rate</strong> after implementing JIRA and Notion, and <strong>50% quality improvement</strong> by bringing dev in-house and establishing code review.">轉型做 PM 後，我在劍橋教育主導了 <strong>Studybar 留學平台</strong>的從 0 到 1 建置——<strong>Web + iOS + Android</strong> 全端開發，涵蓋 AI 客服機器人、落點分析、SaaS CRM、社群自動化工具等 <strong>13 個以上的產品</strong>。帶領 10+ 人的跨職能團隊（工程/行銷/設計），導入 JIRA 與 Notion 後<strong>交付率提升 40%</strong>，外包轉內建並建立代碼審查制度讓<strong>開發品質提升 50%</strong>。</p>
+      <p data-zh="我對 Glossika 產品特別有感的點是<strong>「speech-first」</strong>的學習理念。語言學習最終要回到「能不能開口說」，Glossika 用真實內容和演算法把這件事做得 scalable——涵蓋 65 種語言，包含小眾語言和方言。而 <strong>Viva 平台</strong>讓母語使用者參與內容產製，這個 creator-driven 的生態系統設計非常有想像空間。" data-en="What resonates most about Glossika is the <strong>"speech-first"</strong> learning philosophy. Language learning ultimately comes down to 'can you speak it,' and Glossika makes this scalable with real-world content and algorithms — covering 65 languages including minority languages and dialects. The <strong>Viva platform</strong>, where native speakers contribute content, is a creator-driven ecosystem with tremendous potential.">我對 Glossika 產品特別有感的點是<strong>「speech-first」</strong>的學習理念。語言學習最終要回到「能不能開口說」，Glossika 用真實內容和演算法把這件事做得 scalable——涵蓋 65 種語言，包含小眾語言和方言。而 <strong>Viva 平台</strong>讓母語使用者參與內容產製，這個 creator-driven 的生態系統設計非常有想像空間。</p>
+      <p data-zh="技術面上，我有<strong>超過 3 年與工程團隊深度協作</strong>的經驗——Git/GitHub PR Review、CI/CD 流程、架構決策、技術債管理——這讓我能用工程師的語言溝通產品需求。同時我也具備<strong>訂閱制商業模式</strong>的理解（SaaS CRM、用戶生命週期管理），以及 <strong>Scrum</strong> 實戰經驗。" data-en="On the technical side, I have <strong>3+ years of deep engineering collaboration</strong> — Git/GitHub PR Review, CI/CD pipelines, architecture decisions, tech debt management — enabling me to communicate product requirements in engineers' language. I also bring <strong>subscription business model</strong> expertise (SaaS CRM, user lifecycle management) and hands-on <strong>Scrum</strong> experience.">技術面上，我有<strong>超過 3 年與工程團隊深度協作</strong>的經驗——Git/GitHub PR Review、CI/CD 流程、架構決策、技術債管理——這讓我能用工程師的語言溝通產品需求。同時我也具備<strong>訂閱制商業模式</strong>的理解（SaaS CRM、用戶生命週期管理），以及 <strong>Scrum</strong> 實戰經驗。</p>
+      <p data-zh="我相信 Glossika 需要的不只是一個寫 PRD 的人，而是一個<strong>真正理解語言學習者痛點</strong>、能在資源有限的 20 人團隊中什麼都能推動的 PM。這正是我最擅長的工作型態。" data-en="I believe Glossika needs more than a PRD writer — it needs a PM who <strong>truly understands language learners' pain points</strong> and can drive anything forward in a lean 20-person team. That's exactly how I work best.">我相信 Glossika 需要的不只是一個寫 PRD 的人，而是一個<strong>真正理解語言學習者痛點</strong>、能在資源有限的 20 人團隊中什麼都能推動的 PM。這正是我最擅長的工作型態。</p>
+      <p class="cl-sign" data-zh="期待有機會聊聊。<br>莊淳筑 Erin Chuang<br>easy830922@gmail.com · 0981-353-572" data-en="Looking forward to the conversation.<br>Erin Chuang<br>easy830922@gmail.com · 0981-353-572">期待有機會聊聊。<br>莊淳筑 Erin Chuang<br>easy830922@gmail.com · 0981-353-572</p>
+    </div>
+
+    <!-- Sidebar: JD skills checklist -->
+    <div class="cl-sidebar reveal">
+      <div class="cl-jd-check">
+        <h3 data-zh="Glossika JD 技能對照" data-en="Glossika JD Skills Match">Glossika JD 技能對照</h3>
+        <div class="jd-check-item"><div class="jd-check-icon">✓</div><div class="jd-check-text" data-zh="3+ 年軟體開發協作" data-en="3+ yrs software dev collaboration">3+ 年軟體開發協作</div></div>
+        <div class="jd-check-item"><div class="jd-check-icon">✓</div><div class="jd-check-text" data-zh="iOS + Android + Web 管理" data-en="iOS + Android + Web management">iOS + Android + Web 管理</div></div>
+        <div class="jd-check-item"><div class="jd-check-icon">✓</div><div class="jd-check-text" data-zh="中英文流利（TOEIC 850）" data-en="Fluent Chinese/English (TOEIC 850)">中英文流利（TOEIC 850）</div></div>
+        <div class="jd-check-item"><div class="jd-check-icon">✓</div><div class="jd-check-text" data-zh="自我驅動 · 結果導向" data-en="Self-driven · Results-oriented">自我驅動 · 結果導向</div></div>
+        <div class="jd-check-item"><div class="jd-check-icon">✓</div><div class="jd-check-text" data-zh="跨部門溝通能力" data-en="Cross-functional communication">跨部門溝通能力</div></div>
+        <div class="jd-check-item"><div class="jd-check-icon">✓</div><div class="jd-check-text" data-zh="成功上線新產品/功能" data-en="Successfully launched new products">成功上線新產品/功能</div></div>
+        <div class="jd-check-item"><div class="jd-check-icon">✓</div><div class="jd-check-text" data-zh="MRD / PRD 撰寫" data-en="MRD / PRD documentation">MRD / PRD 撰寫</div></div>
+        <div class="jd-check-item"><div class="jd-check-icon">✓</div><div class="jd-check-text" data-zh="Scrum 經驗" data-en="Scrum experience">Scrum 經驗</div></div>
+        <div class="jd-check-item"><div class="jd-check-icon">✓</div><div class="jd-check-text" data-zh="外語學習經驗" data-en="Foreign language learning">外語學習經驗</div></div>
+        <div class="jd-check-item"><div class="jd-check-icon">✓</div><div class="jd-check-text" data-zh="訂閱制商業模式" data-en="Subscription business model">訂閱制商業模式</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile CL button -->
+  <button class="btn btn-fill cl-btn-mobile" onclick="openCL()" style="margin-top:1rem;">閱讀完整 Cover Letter</button>
+</section>
+
+<!-- CL Modal (mobile) -->
+<div class="cl-overlay" id="clOverlay" onclick="closeCL()"></div>
+<div class="cl-modal" id="clModal">
+  <button class="cl-modal-close" onclick="closeCL()">×</button>
+  <div style="font-size:0.9rem;line-height:1.85;">
+    <p style="font-weight:700;font-size:1rem;">Dear Glossika 招募團隊，</p>
+    <p>我是莊淳筑 Erin，正在申請 <strong style="color:var(--coral);">Remote Product Manager</strong> 一職。我在 EdTech 領域累積了 5 年產品管理經驗，從幼兒英語教學出發，一路到主導 AI 產品與跨平台開發。Glossika 的使命——<strong style="color:var(--coral);">「make real-life communication accessible in every language」</strong>——讓我看到一個能把這些經驗發揮到最大的舞台。</p>
+    <p>我的起點是英文教育。在康橋國際學校擔任三年幼兒園雙語導師，每天帶著孩子從零開始接觸英文，觀察他們最自然的語言學習過程。這段經歷成為我做 EdTech 產品最底層的同理心。</p>
+    <p>轉型做 PM 後，我主導了 <strong style="color:var(--coral);">Studybar 留學平台</strong>從 0 到 1——Web + iOS + Android 全端，涵蓋 AI 客服、SaaS CRM 等 13+ 產品。帶領 10+ 人跨職能團隊，交付率提升 40%，開發品質提升 50%。</p>
+    <p>技術面上，我有超過 3 年與工程團隊深度協作的經驗——Git PR Review、CI/CD、架構決策、技術債管理。同時具備訂閱制商業模式理解和 Scrum 實戰經驗。</p>
+    <p>Glossika 需要的是一個真正理解語言學習者痛點、能在 20 人團隊中什麼都能推動的 PM。這正是我最擅長的。</p>
+    <p style="margin-top:1.5rem;font-weight:600;">莊淳筑 Erin Chuang<br>easy830922@gmail.com · 0981-353-572</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- KPI -->
+<section class="section" id="kpi" style="background:var(--paper2);padding-top:5rem;padding-bottom:5rem;max-width:none;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-tag reveal" data-zh="成就數據" data-en="Achievements">成就數據</div>
+    <div class="section-title reveal" data-zh="用數字說話" data-en="Let the numbers speak">用數字說話</div>
+    <div class="kpi-grid">
+      <div class="kpi-card reveal"><div class="kpi-val" style="color:var(--coral);">13+</div><div class="kpi-label" data-zh="產品從 0→1 交付" data-en="Products shipped 0→1">產品從 0→1 交付</div><div class="kpi-bar" style="background:var(--coral);width:90%;"></div></div>
+      <div class="kpi-card reveal"><div class="kpi-val" style="color:var(--mint);">+40%</div><div class="kpi-label" data-zh="交付率提升（JIRA/Notion）" data-en="Delivery rate improvement (JIRA/Notion)">交付率提升（JIRA/Notion）</div><div class="kpi-bar" style="background:var(--mint);width:80%;"></div></div>
+      <div class="kpi-card reveal"><div class="kpi-val" style="color:var(--coral);">+50%</div><div class="kpi-label" data-zh="開發品質提升（代碼審查）" data-en="Dev quality improvement (code review)">開發品質提升（代碼審查）</div><div class="kpi-bar" style="background:var(--coral);width:85%;"></div></div>
+      <div class="kpi-card reveal"><div class="kpi-val" style="color:var(--blue);">14→5 天</div><div class="kpi-label" data-zh="簽約週期縮短（數位化）" data-en="Contract cycle shortened (digitized)">簽約週期縮短（數位化）</div><div class="kpi-bar" style="background:var(--blue);width:65%;"></div></div>
+      <div class="kpi-card reveal"><div class="kpi-val" style="color:var(--sun);">3,500+</div><div class="kpi-label" data-zh="iOS 下載 · 4.6★" data-en="iOS downloads · 4.6★">iOS 下載 · 4.6★</div><div class="kpi-bar" style="background:var(--sun);width:75%;"></div></div>
+      <div class="kpi-card reveal"><div class="kpi-val" style="color:var(--mint);">3,000+</div><div class="kpi-label" data-zh="平台註冊用戶（12 個月）" data-en="Platform users (12 months)">平台註冊用戶（12 個月）</div><div class="kpi-bar" style="background:var(--mint);width:70%;"></div></div>
+      <div class="kpi-card reveal"><div class="kpi-val" style="color:var(--coral);">$2</div><div class="kpi-label" data-zh="廣告 CPC 平均" data-en="Avg. ad CPC">廣告 CPC 平均</div><div class="kpi-bar" style="background:var(--coral);width:55%;"></div></div>
+      <div class="kpi-card reveal"><div class="kpi-val" style="color:var(--blue);">90%</div><div class="kpi-label" data-zh="陌生開發成功率" data-en="Cold outreach success rate">陌生開發成功率</div><div class="kpi-bar" style="background:var(--blue);width:90%;"></div></div>
+    </div>
+
+    <!-- Social Growth Chart -->
+    <div class="chart-wrap reveal">
+      <div class="chart-header">
+        <div class="chart-title" data-zh="社群成長曲線（12 個月 0→24.5K）" data-en="Social Growth Curve (12 months 0→24.5K)">社群成長曲線（12 個月 0→24.5K）</div>
+        <div class="chart-toggles">
+          <button class="chart-toggle ig on" id="btnIG" onclick="toggleIG()">IG</button>
+          <button class="chart-toggle th on" id="btnTH" onclick="toggleTH()">Threads</button>
+        </div>
+      </div>
+      <svg id="lc" viewBox="0 0 800 180" width="100%" style="display:block;"></svg>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-inner"><div class="section-tag reveal" data-zh="產品案例" data-en="Projects">產品案例</div>
+  <div class="section-title reveal" data-zh="與 Glossika 最相關的產品經驗" data-en="Product experience most relevant to Glossika">與 Glossika 最相關的產品經驗</div>
+
+  <div class="proj-tabs reveal" id="tabNav">
+    <button class="ptab active" data-i="0" data-zh="Studybar 留學吧" data-en="Studybar">Studybar 留學吧</button>
+    <button class="ptab" data-i="1" data-zh="AI 顧問機器人" data-en="AI Advisor Bot">AI 顧問機器人</button>
+    <button class="ptab" data-i="2" data-zh="教育機構 CRM" data-en="Education CRM">教育機構 CRM</button>
+    <button class="ptab" data-i="3" data-zh="社群自動化工具" data-en="Social Automation Tools">社群自動化工具</button>
+    <button class="ptab" data-i="4" data-zh="外部客戶網站" data-en="Client Websites">外部客戶網站</button>
+  </div>
+
+  <div id="projPanels">
+    <!-- Studybar -->
+    <div class="proj-panel active">
+      <div class="proj-card">
+        <div class="proj-header">
+          <div class="proj-title" data-zh="Studybar 留學吧" data-en="Studybar">Studybar 留學吧</div>
+          <div class="proj-role">Product Lead · Web + iOS + Android</div>
+        </div>
+        <div class="proj-desc" data-zh="全方位留學平台從 0→1 建置。包含論壇、學校評鑑、AI 客服機器人、落點分析、交友配對、一番賞抽獎、共好辦公室預約系統。管理完整產品生命週期從 PRD 到 App Store 上架。<br><br><strong>與 Glossika 的關聯：</strong>同樣是教育科技 SaaS 平台、需要管理 iOS + Android + Web 三端、AI 功能整合、以及從 0 建立的經驗。" data-en="Full-stack study-abroad platform built from 0→1. Includes forum, school reviews, AI chatbot, score prediction, matchmaking, lucky draw, and co-working space booking. Managed full product lifecycle from PRD to App Store launch.<br><br><strong>Relevance to Glossika:</strong> EdTech SaaS platform managing iOS + Android + Web, AI integration, and 0→1 build experience.">全方位留學平台從 0→1 建置。包含論壇、學校評鑑、AI 客服機器人、落點分析、交友配對、一番賞抽獎、共好辦公室預約系統。管理完整產品生命週期從 PRD 到 App Store 上架。<br><br><strong>與 Glossika 的關聯：</strong>同樣是教育科技 SaaS 平台、需要管理 iOS + Android + Web 三端、AI 功能整合、以及從 0 建立的經驗。</div>
+        <div class="proj-metrics">
+          <div class="proj-metric"><div class="pm-val">3,500+</div><div class="pm-lbl" data-zh="iOS 下載" data-en="iOS Downloads">iOS 下載</div></div>
+          <div class="proj-metric"><div class="pm-val">4.6★</div><div class="pm-lbl" data-zh="App Store 評分" data-en="App Store Rating">App Store 評分</div></div>
+          <div class="proj-metric"><div class="pm-val">3,000+</div><div class="pm-lbl" data-zh="註冊用戶" data-en="Registered Users">註冊用戶</div></div>
+          <div class="proj-metric"><div class="pm-val">12 mo</div><div class="pm-lbl" data-zh="從 0 到上線" data-en="0 to Launch">從 0 到上線</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Bot -->
+    <div class="proj-panel">
+      <div class="proj-card">
+        <div class="proj-header">
+          <div class="proj-title" data-zh="AI 顧問機器人" data-en="AI Advisor Bot">AI 顧問機器人</div>
+          <div class="proj-role" data-zh="PM · 資料搜集 · 測試規劃 · 驗收" data-en="PM · Data Collection · QA">PM · 資料搜集 · 測試規劃 · 驗收</div>
+        </div>
+        <div class="proj-desc" data-zh="AI 驅動的留學顧問機器人。負責資料搜集流程設計、測試案例規劃、驗收標準制定。<br><br><strong>與 Glossika 的關聯：</strong>直接對應 Glossika 的 AI 演算法驅動學習。理解 AI 產品的資料品質管理、測試方法論、以及如何把 AI 能力轉化為用戶價值。" data-en="AI-powered study-abroad advisor bot. Responsible for data collection flow design, test case planning, and acceptance criteria.<br><br><strong>Relevance to Glossika:</strong> Directly maps to Glossika's algorithm-driven learning. Understanding AI product data quality, testing methodology, and converting AI capabilities into user value.">AI 驅動的留學顧問機器人。負責資料搜集流程設計、測試案例規劃、驗收標準制定。<br><br><strong>與 Glossika 的關聯：</strong>直接對應 Glossika 的 AI 演算法驅動學習。理解 AI 產品的資料品質管理、測試方法論、以及如何把 AI 能力轉化為用戶價值。</div>
+        <div class="proj-metrics">
+          <div class="proj-metric"><div class="pm-val">AI</div><div class="pm-lbl" data-zh="NLP 產品" data-en="NLP Product">NLP 產品</div></div>
+          <div class="proj-metric"><div class="pm-val">E2E</div><div class="pm-lbl" data-zh="端到端測試" data-en="End-to-end Testing">端到端測試</div></div>
+          <div class="proj-metric"><div class="pm-val">PRD</div><div class="pm-lbl" data-zh="需求文件" data-en="Requirements Doc">需求文件</div></div>
+          <div class="proj-metric"><div class="pm-val">QA</div><div class="pm-lbl" data-zh="驗收標準" data-en="Acceptance Criteria">驗收標準</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRM -->
+    <div class="proj-panel">
+      <div class="proj-card">
+        <div class="proj-header">
+          <div class="proj-title" data-zh="教育機構 CRM 系統" data-en="Education CRM System">教育機構 CRM 系統</div>
+          <div class="proj-role" data-zh="PM · 企業 SaaS" data-en="PM · Enterprise SaaS">PM · 企業 SaaS</div>
+        </div>
+        <div class="proj-desc" data-zh="教育機構學員管理系統。學員管理、課程排程、退費處理、資料報表、角色權限。<br><br><strong>與 Glossika 的關聯：</strong>訂閱制 SaaS 商業模式、用戶資料管理、權限設計——與 Glossika 的 B2C 訂閱制和 B2B 組織管理有直接相關性。" data-en="Student management system for educational institutions. Student management, course scheduling, refund processing, data reports, role-based access.<br><br><strong>Relevance to Glossika:</strong> Subscription SaaS model, user data management, permission design — directly relevant to Glossika's B2C subscription and B2B org management.">教育機構學員管理系統。學員管理、課程排程、退費處理、資料報表、角色權限。<br><br><strong>與 Glossika 的關聯：</strong>訂閱制 SaaS 商業模式、用戶資料管理、權限設計——與 Glossika 的 B2C 訂閱制和 B2B 組織管理有直接相關性。</div>
+        <div class="proj-metrics">
+          <div class="proj-metric"><div class="pm-val">SaaS</div><div class="pm-lbl" data-zh="訂閱制模式" data-en="Subscription Model">訂閱制模式</div></div>
+          <div class="proj-metric"><div class="pm-val">RBAC</div><div class="pm-lbl" data-zh="角色權限設計" data-en="Role-based Access">角色權限設計</div></div>
+          <div class="proj-metric"><div class="pm-val">CRM</div><div class="pm-lbl" data-zh="學員管理" data-en="Student Management">學員管理</div></div>
+          <div class="proj-metric"><div class="pm-val">BI</div><div class="pm-lbl" data-zh="數據報表" data-en="Data Reports">數據報表</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social -->
+    <div class="proj-panel">
+      <div class="proj-card">
+        <div class="proj-header">
+          <div class="proj-title" data-zh="社群自動化工具" data-en="Social Automation Tools">社群自動化工具</div>
+          <div class="proj-role">PM · Growth Engineering</div>
+        </div>
+        <div class="proj-desc" data-zh="AI 文章生成、自動海巡互動、一鍵換大頭貼。打造社群成長引擎，12 個月內從 0 到 24.5K 追蹤。<br><br><strong>與 Glossika 的關聯：</strong>Glossika 需要用戶增長和留存。這套社群自動化工具的思維可以應用在用戶獲取、engagement loop、content-driven growth。" data-en="AI article generation, automated engagement, one-click avatar changes. Built a social growth engine achieving 0→24.5K followers in 12 months.<br><br><strong>Relevance to Glossika:</strong> Glossika needs user growth and retention. This social automation mindset applies to user acquisition, engagement loops, and content-driven growth.">AI 文章生成、自動海巡互動、一鍵換大頭貼。打造社群成長引擎，12 個月內從 0 到 24.5K 追蹤。<br><br><strong>與 Glossika 的關聯：</strong>Glossika 需要用戶增長和留存。這套社群自動化工具的思維可以應用在用戶獲取、engagement loop、content-driven growth。</div>
+        <div class="proj-metrics">
+          <div class="proj-metric"><div class="pm-val">11.5K</div><div class="pm-lbl" data-zh="IG 追蹤" data-en="IG Followers">IG 追蹤</div></div>
+          <div class="proj-metric"><div class="pm-val">13K</div><div class="pm-lbl" data-zh="Threads 追蹤" data-en="Threads Followers">Threads 追蹤</div></div>
+          <div class="proj-metric"><div class="pm-val">$2</div><div class="pm-lbl" data-zh="CPC 平均" data-en="Avg CPC">CPC 平均</div></div>
+          <div class="proj-metric"><div class="pm-val">AI</div><div class="pm-lbl" data-zh="內容自動生成" data-en="Auto Content Gen">內容自動生成</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- External -->
+    <div class="proj-panel">
+      <div class="proj-card">
+        <div class="proj-header">
+          <div class="proj-title" data-zh="外部客戶網站專案" data-en="Client Website Projects">外部客戶網站專案</div>
+          <div class="proj-role" data-zh="PM · 客戶溝通 · 驗收" data-en="PM · Client Comms · QA">PM · 客戶溝通 · 驗收</div>
+        </div>
+        <div class="proj-desc" data-zh="3 個外部客戶官方網站專案。負責需求溝通、設計對齊、開發進度管理、驗收交付。<br><br><strong>與 Glossika 的關聯：</strong>展現跨專案管理能力、stakeholder 溝通、品質驗收——在 20 人團隊中 PM 經常需要同時推進多個 initiative。" data-en="3 external client website projects. Responsible for requirements gathering, design alignment, development management, and delivery QA.<br><br><strong>Relevance to Glossika:</strong> Demonstrates cross-project management, stakeholder communication, and quality assurance — skills essential when a PM in a 20-person team drives multiple initiatives.">3 個外部客戶官方網站專案。負責需求溝通、設計對齊、開發進度管理、驗收交付。<br><br><strong>與 Glossika 的關聯：</strong>展現跨專案管理能力、stakeholder 溝通、品質驗收——在 20 人團隊中 PM 經常需要同時推進多個 initiative。</div>
+        <div class="proj-metrics">
+          <div class="proj-metric"><div class="pm-val">3</div><div class="pm-lbl" data-zh="外部客戶" data-en="External Clients">外部客戶</div></div>
+          <div class="proj-metric"><div class="pm-val">E2E</div><div class="pm-lbl" data-zh="需求到交付" data-en="End-to-end Delivery">需求到交付</div></div>
+          <div class="proj-metric"><div class="pm-val">RWD</div><div class="pm-lbl" data-zh="響應式設計" data-en="Responsive Design">響應式設計</div></div>
+          <div class="proj-metric"><div class="pm-val">QA</div><div class="pm-lbl" data-zh="品質驗收" data-en="Quality Assurance">品質驗收</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-arrow-nav reveal">
+    <button class="proj-arrow" id="projPrev" disabled>‹</button>
+    <span class="proj-counter" id="projCounter">1 / 5</span>
+    <button class="proj-arrow" id="projNext">›</button>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILL TREE (replaces JD Fit) -->
+<section class="skill-tree-section" id="skilltree">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-tag reveal" data-zh="技能樹" data-en="Skill Tree">技能樹</div>
+    <div class="section-title reveal" data-zh="能力分佈與經驗深度" data-en="Capability Distribution & Experience Depth">能力分佈與經驗深度</div>
+    <div class="skill-tree-desc reveal" data-zh="基於 5 年實務經驗的技能強度分佈，數據來自實際專案成果。" data-en="Skill intensity distribution based on 5 years of hands-on experience, derived from actual project outcomes.">基於 5 年實務經驗的技能強度分佈，數據來自實際專案成果。</div>
+
+    <div class="st-grid">
+      <!-- Product Management -->
+      <div class="st-card reveal">
+        <div class="st-card-header">
+          <div class="st-card-title" data-zh="產品管理" data-en="Product Management">產品管理</div>
+          <div class="st-card-level" style="background:var(--coral);" data-zh="核心" data-en="Core">核心</div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="產品生命週期（PRD→上線→迭代）" data-en="Product Lifecycle (PRD→Launch→Iterate)" data-zh="產品生命週期（PRD→上線→迭代）" data-en="Product Lifecycle (PRD→Launch→Iterate)">產品生命週期（PRD→上線→迭代）</span><span>95%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--coral);" data-width="95%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="0→1 新產品建置" data-en="0→1 Product Build" data-zh="0→1 新產品建置" data-en="0→1 Product Build">0→1 新產品建置</span><span>92%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--coral);" data-width="92%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="RICE 優先級決策" data-en="RICE Prioritization" data-zh="RICE 優先級決策" data-en="RICE Prioritization">RICE 優先級決策</span><span>88%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--coral);" data-width="88%"></div></div>
+        </div>
+        <div class="st-card-note" data-zh="13+ 產品交付 · MRD/PRD · OKR/KPI" data-en="13+ products shipped · MRD/PRD · OKR/KPI">13+ 產品交付 · MRD/PRD · OKR/KPI</div>
+      </div>
+
+      <!-- Team Leadership -->
+      <div class="st-card reveal">
+        <div class="st-card-header">
+          <div class="st-card-title" data-zh="團隊領導" data-en="Team Leadership">團隊領導</div>
+          <div class="st-card-level" style="background:var(--mint);" data-zh="核心" data-en="Core">核心</div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="跨職能團隊管理（10+人）" data-en="Cross-functional Team (10+)">跨職能團隊管理（10+人）</span><span>90%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--mint);" data-width="90%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="遠端非同步協作" data-en="Remote Async Collaboration">遠端非同步協作</span><span>92%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--mint);" data-width="92%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="招募 · 培訓 · 考核" data-en="Hiring · Training · Reviews">招募 · 培訓 · 考核</span><span>85%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--mint);" data-width="85%"></div></div>
+        </div>
+        <div class="st-card-note" data-zh="交付率 +40% · JIRA + Notion · SOP 制度建立" data-en="Delivery rate +40% · JIRA + Notion · SOP setup">交付率 +40% · JIRA + Notion · SOP 制度建立</div>
+      </div>
+
+      <!-- Tech Collaboration -->
+      <div class="st-card reveal">
+        <div class="st-card-header">
+          <div class="st-card-title" data-zh="技術協作" data-en="Technical Collaboration">技術協作</div>
+          <div class="st-card-level" style="background:var(--blue);" data-zh="進階" data-en="Advanced">進階</div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="iOS / Android APP 管理上架" data-en="iOS / Android App Management" data-zh="iOS / Android APP 管理上架" data-en="iOS / Android App Management & Launch">iOS / Android APP 管理上架</span><span>88%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--blue);" data-width="88%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="Git / GitHub（PR Review · CI/CD）" data-en="Git / GitHub (PR Review · CI/CD)" data-zh="Git / GitHub（PR Review · CI/CD）" data-en="Git / GitHub (PR Review · CI/CD)">Git / GitHub（PR Review · CI/CD）</span><span>82%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--blue);" data-width="82%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="AI 產品開發" data-en="AI Product Development" data-zh="AI 產品開發" data-en="AI Product Development">AI 產品開發</span><span>80%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--blue);" data-width="80%"></div></div>
+        </div>
+        <div class="st-card-note" data-zh="代碼審查制度建立 · 品質提升 50% · Context Engineering" data-en="Code review system · 50% quality improvement · Context Engineering">代碼審查制度建立 · 品質提升 50% · Context Engineering</div>
+      </div>
+
+      <!-- Data & Analytics -->
+      <div class="st-card reveal">
+        <div class="st-card-header">
+          <div class="st-card-title" data-zh="數據分析" data-en="Data & Analytics">數據分析</div>
+          <div class="st-card-level" style="background:var(--sun);" data-zh="進階" data-en="Advanced">進階</div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="GA4 · Mixpanel · Firebase" data-en="GA4 · Mixpanel · Firebase" data-zh="GA4 · Mixpanel · Firebase" data-en="GA4 · Mixpanel · Firebase">GA4 · Mixpanel · Firebase</span><span>82%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--sun);" data-width="82%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="訂閱指標（MRR · Churn · LTV）" data-en="Subscription Metrics (MRR · Churn · LTV)" data-zh="訂閱指標（MRR · Churn · LTV）" data-en="Subscription Metrics (MRR · Churn · LTV)">訂閱指標（MRR · Churn · LTV）</span><span>78%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--sun);" data-width="78%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="A/B Testing" data-en="A/B Testing" data-zh="A/B Testing" data-en="A/B Testing">A/B Testing</span><span>70%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--sun);" data-width="70%"></div></div>
+        </div>
+        <div class="st-card-note" data-zh="數據驅動決策 · Figma · UI/UX 協作" data-en="Data-driven decisions · Figma · UI/UX collaboration">數據驅動決策 · Figma · UI/UX 協作</div>
+      </div>
+
+      <!-- Growth & Marketing -->
+      <div class="st-card reveal">
+        <div class="st-card-header">
+          <div class="st-card-title" data-zh="成長 & 行銷" data-en="Growth & Marketing">成長 & 行銷</div>
+          <div class="st-card-level" style="background:var(--coral);" data-zh="進階" data-en="Advanced">進階</div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="社群規模化（0→24.5K）" data-en="Social Scaling (0→24.5K)">社群規模化（0→24.5K）</span><span>90%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--coral);" data-width="90%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="廣告投放（CPC $2）" data-en="Ad Performance (CPC $2)">廣告投放（CPC $2）</span><span>85%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--coral);" data-width="85%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="SEO · 內容行銷 · BD" data-en="SEO · Content Marketing · BD">SEO · 內容行銷 · BD</span><span>80%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:var(--coral);" data-width="80%"></div></div>
+        </div>
+        <div class="st-card-note" data-zh="校園大使計畫 · 品牌合作 · 陌生開發 90%" data-en="Campus ambassador program · Brand partnerships · 90% cold outreach success">校園大使計畫 · 品牌合作 · 陌生開發 90%</div>
+      </div>
+
+      <!-- Languages -->
+      <div class="st-card reveal">
+        <div class="st-card-header">
+          <div class="st-card-title" data-zh="語言能力" data-en="Languages">語言能力</div>
+          <div class="st-card-level" style="background:rgba(255,255,255,0.15);color:#fff;" data-zh="特殊" data-en="Special">特殊</div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="中文（母語）" data-en="Chinese (Native)" data-zh="中文（母語）" data-en="Chinese (Native)">中文（母語）</span><span>100%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:#fff;" data-width="100%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="英文（TOEIC 850）" data-en="English (TOEIC 850)" data-zh="英文（TOEIC 850）" data-en="English (TOEIC 850)">英文（TOEIC 850）</span><span>85%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:#fff;" data-width="85%"></div></div>
+        </div>
+        <div class="st-bar-wrap">
+          <div class="st-bar-label"><span data-zh="韓文（基礎 · 交換學生）" data-en="Korean (Basic · Exchange Student)" data-zh="韓文（基礎 · 交換學生）" data-en="Korean (Basic · Exchange Student)">韓文（基礎 · 交換學生）</span><span>30%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="background:#fff;" data-width="30%"></div></div>
+        </div>
+        <div class="st-card-note" data-zh="台語流利 · 康橋幼兒園雙語導師 3 年" data-en="Fluent Taiwanese · 3 years kindergarten teacher">台語流利 · 康橋幼兒園雙語導師 3 年</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="section-tag reveal" data-zh="技能清單" data-en="Skills">技能清單</div>
+  <div class="section-title reveal" data-zh="PM 工具箱" data-en="PM Toolbox">PM 工具箱</div>
+  <div class="sk-grid">
+    <div class="sk-card reveal" style="--sk-color:var(--coral);--sk-border:rgba(232,98,28,0.6);">
+      <div class="sk-title" data-zh="產品管理" data-en="Product Management">產品管理</div>
+      <div class="sk-chips">
+        <span class="chip chip-coral" data-zh="產品生命週期（PRD→上線→迭代）" data-en="Product Lifecycle (PRD→Launch→Iterate)">產品生命週期（PRD→上線→迭代）</span>
+        <span class="chip chip-coral" data-zh="RICE 優先級決策" data-en="RICE Prioritization">RICE 優先級決策</span>
+        <span class="chip chip-coral" data-zh="0→1 新產品建置" data-en="0→1 Product Build">0→1 新產品建置</span>
+        <span class="chip chip-coral" data-zh="OKR / KPI 目標管理" data-en="OKR / KPI Goal Management">OKR / KPI 目標管理</span>
+        <span class="chip chip-coral" data-zh="用戶研究 · 競品分析" data-en="User Research · Competitive Analysis">用戶研究 · 競品分析</span>
+        <span class="chip chip-coral" data-zh="MRD / PRD 撰寫" data-en="MRD / PRD Writing">MRD / PRD 撰寫</span>
+      </div>
+    </div>
+    <div class="sk-card reveal" style="--sk-color:var(--mint);--sk-border:rgba(22,137,122,0.6);">
+      <div class="sk-title" data-zh="技術協作" data-en="Technical Collaboration">技術協作</div>
+      <div class="sk-chips">
+        <span class="chip chip-mint" data-zh="Git / GitHub（PR Review · CI/CD）" data-en="Git / GitHub (PR Review · CI/CD)">Git / GitHub（PR Review · CI/CD）</span>
+        <span class="chip chip-mint" data-zh="iOS / Android APP 管理上架" data-en="iOS / Android App Management & Launch">iOS / Android APP 管理上架</span>
+        <span class="chip chip-mint" data-zh="AI 產品開發" data-en="AI Product Development">AI 產品開發</span>
+        <span class="chip chip-mint" data-zh="Context Engineering · MCP 整合" data-en="Context Engineering · MCP Integration">Context Engineering · MCP 整合</span>
+        <span class="chip chip-mint" data-zh="代碼審查制度建立" data-en="Code Review Process Setup">代碼審查制度建立</span>
+      </div>
+    </div>
+    <div class="sk-card reveal" style="--sk-color:var(--blue);--sk-border:rgba(26,107,138,0.6);">
+      <div class="sk-title" data-zh="數據 & 分析" data-en="Data & Analytics">數據 & 分析</div>
+      <div class="sk-chips">
+        <span class="chip chip-blue" data-zh="GA4 · Mixpanel · Firebase" data-en="GA4 · Mixpanel · Firebase">GA4 · Mixpanel · Firebase</span>
+        <span class="chip chip-blue" data-zh="A/B Testing" data-en="A/B Testing">A/B Testing</span>
+        <span class="chip chip-blue" data-zh="訂閱指標（MRR · Churn · LTV）" data-en="Subscription Metrics (MRR · Churn · LTV)">訂閱指標（MRR · Churn · LTV）</span>
+        <span class="chip chip-blue" data-zh="數據驅動決策" data-en="Data-Driven Decisions">數據驅動決策</span>
+        <span class="chip chip-blue" data-zh="Figma · Wireframe · UI/UX 協作" data-en="Figma · Wireframe · UI/UX Collaboration">Figma · Wireframe · UI/UX 協作</span>
+      </div>
+    </div>
+    <div class="sk-card reveal" style="--sk-color:var(--sun);--sk-border:rgba(244,162,54,0.6);">
+      <div class="sk-title" data-zh="協作工具" data-en="Collaboration Tools">協作工具</div>
+      <div class="sk-chips">
+        <span class="chip chip-sun" data-zh="JIRA · Scrum" data-en="JIRA · Scrum">JIRA · Scrum</span>
+        <span class="chip chip-sun" data-zh="Notion" data-en="Notion">Notion</span>
+        <span class="chip chip-sun" data-zh="SOP 制度建立" data-en="SOP Process Design">SOP 制度建立</span>
+        <span class="chip chip-sun" data-zh="遠端非同步管理" data-en="Remote Async Management">遠端非同步管理</span>
+        <span class="chip chip-sun" data-zh="Asana · Monday" data-en="Asana · Monday">Asana · Monday</span>
+      </div>
+    </div>
+    <div class="sk-card reveal" style="--sk-color:var(--ink);--sk-border:rgba(26,26,46,0.3);">
+      <div class="sk-title" data-zh="語言" data-en="Languages">語言</div>
+      <div class="sk-chips">
+        <span class="chip chip-ink" data-zh="中文（母語）" data-en="Chinese (Native)">中文（母語）</span>
+        <span class="chip chip-ink" data-zh="英文（TOEIC 850）" data-en="English (TOEIC 850)">英文（TOEIC 850）</span>
+        <span class="chip chip-ink" data-zh="韓文（基礎 · 交換學生）" data-en="Korean (Basic · Exchange Student)">韓文（基礎 · 交換學生）</span>
+        <span class="chip chip-ink" data-zh="台語（流利）" data-en="Taiwanese (Fluent)">台語（流利）</span>
+      </div>
+    </div>
+    <div class="sk-card reveal" style="--sk-color:var(--coral);--sk-border:rgba(232,98,28,0.4);">
+      <div class="sk-title" data-zh="成長 & 行銷" data-en="Growth & Marketing">成長 & 行銷</div>
+      <div class="sk-chips">
+        <span class="chip chip-coral" data-zh="社群 0→24.5K 策略" data-en="Social 0→24.5K Strategy">社群 0→24.5K 策略</span>
+        <span class="chip chip-coral" data-zh="廣告投放優化" data-en="Ad Optimization">廣告投放優化</span>
+        <span class="chip chip-coral" data-zh="SEO · 內容行銷" data-en="SEO · Content Marketing">SEO · 內容行銷</span>
+        <span class="chip chip-coral" data-zh="品牌合作 · BD" data-en="Brand Partnerships · BD">品牌合作 · BD</span>
+        <span class="chip chip-coral" data-zh="校園大使計畫" data-en="Campus Ambassador Program">校園大使計畫</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <h3>莊淳筑 Erin Chuang</h3>
+    <p>easy830922@gmail.com · 0981-353-572 · <span data-zh="台北市（全遠端）" data-en="Taipei (Fully Remote)">台北市（全遠端）</span></p>
+  </div>
+  <div class="footer-links">
+    <a href="#coverletter" class="footer-link">Cover Letter</a>
+    <a href="#projects" class="footer-link" data-zh="產品案例" data-en="Projects">產品案例</a>
+    <a href="mailto:easy830922@gmail.com" class="footer-link" data-zh="聯繫我" data-en="Contact Me">聯繫我</a>
+  </div>
+</footer>
+
+<script>
+// ===== LANGUAGE TOGGLE =====
+let currentLang = 'zh';
+const langBtns = document.querySelectorAll('.lang-btn');
+
+langBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lang = btn.dataset.lang;
+    if (lang === currentLang) return;
+    currentLang = lang;
+    langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    switchLang(lang);
+  });
+});
+
+function switchLang(lang) {
+  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (val !== null) {
+      if (el.children.length === 0 || el.classList.contains('hero-sub') || el.classList.contains('proj-desc') || el.classList.contains('cl-body') || el.classList.contains('about-text') || el.tagName === 'P') {
+        el.innerHTML = val;
+      } else if (!el.querySelector('[data-zh]')) {
+        el.innerHTML = val;
+      }
+    }
+  });
+  // Update HTML lang
+  document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+}
+
+// ===== MODAL =====
+function openCL(){
+  document.getElementById('clOverlay').classList.add('open');
+  document.getElementById('clModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeCL(){
+  document.getElementById('clOverlay').classList.remove('open');
+  document.getElementById('clModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeCL(); });
+
+// ===== CURSOR =====
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
+animRing();
+document.querySelectorAll('a,button,.kpi-card,.stat-card,.st-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='50px';ring.style.height='50px';ring.style.opacity='0.8';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.opacity='0.5';});
+});
+
+// ===== PROJECT TABS =====
+(function(){
+  const tabs = Array.from(document.querySelectorAll('.ptab'));
+  const panels = Array.from(document.querySelectorAll('.proj-panel'));
+  const tabNav = document.getElementById('tabNav');
+  const counter = document.getElementById('projCounter');
+  const btnPrev = document.getElementById('projPrev');
+  const btnNext = document.getElementById('projNext');
+  const total = tabs.length;
+  let current = 0;
+
+  function goTo(i) {
+    if (i < 0 || i >= total) return;
+    current = i;
+    tabs.forEach(b => b.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    tabs[i].classList.add('active');
+    panels[i].classList.add('active');
+    if (tabNav) tabs[i].scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+    if (counter) counter.textContent = (i + 1) + ' / ' + total;
+    if (btnPrev) btnPrev.disabled = i === 0;
+    if (btnNext) btnNext.disabled = i === total - 1;
+  }
+
+  tabs.forEach((btn, i) => btn.addEventListener('click', () => goTo(i)));
+  if (btnPrev) btnPrev.addEventListener('click', () => goTo(current - 1));
+  if (btnNext) btnNext.addEventListener('click', () => goTo(current + 1));
+
+  // Touch swipe
+  const panelsEl = document.getElementById('projPanels');
+  if (panelsEl) {
+    let startX = 0, startY = 0;
+    panelsEl.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, {passive: true});
+    panelsEl.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) { dx < 0 ? goTo(current + 1) : goTo(current - 1); }
+    }, {passive: true});
+  }
+  goTo(0);
+})();
+
+// ===== SCROLL REVEAL =====
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      // Animate skill tree bars
+      e.target.querySelectorAll('.st-bar-fill').forEach(bar=>{
+        bar.style.width = bar.dataset.width;
+      });
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ===== LINE CHART =====
+const igData=[0,800,2100,3500,5200,6800,7900,8900,9600,10300,10800,11200,11500];
+const thData=[0,0,0,1200,3000,5000,7200,8500,9800,10800,11600,12200,13000];
+const W=800,H=180,PAD=16,MAX=14000;
+let showIG=true,showTH=true;
+
+function drawLC(){
+  const svg=document.getElementById('lc');
+  const pts=(d)=>d.map((v,i)=>({x:PAD+(i/(d.length-1))*(W-PAD*2),y:H-PAD-(v/MAX)*(H-PAD*2)}));
+  const path=(pts)=>{let d=`M${pts[0].x} ${pts[0].y}`;for(let i=1;i<pts.length;i++){const c1x=pts[i-1].x+(pts[i].x-pts[i-1].x)/3,c2x=pts[i].x-(pts[i].x-pts[i-1].x)/3;d+=` C${c1x} ${pts[i-1].y},${c2x} ${pts[i].y},${pts[i].x} ${pts[i].y}`;}return d;};
+  const ip=pts(igData),tp=pts(thData);
+  const ipStr=path(ip),tpStr=path(tp);
+  svg.innerHTML=`
+    <defs>
+      <linearGradient id="gIG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${getComputedStyle(document.documentElement).getPropertyValue('--coral').trim()}" stop-opacity="0.25"/><stop offset="100%" stop-color="${getComputedStyle(document.documentElement).getPropertyValue('--coral').trim()}" stop-opacity="0"/></linearGradient>
+      <linearGradient id="gTH" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${getComputedStyle(document.documentElement).getPropertyValue('--blue').trim()}" stop-opacity="0.2"/><stop offset="100%" stop-color="${getComputedStyle(document.documentElement).getPropertyValue('--blue').trim()}" stop-opacity="0"/></linearGradient>
+    </defs>
+    ${showIG?`<path d="${ipStr} L${W-PAD} ${H-PAD} L${PAD} ${H-PAD}Z" fill="url(#gIG)"/>
+    <path d="${ipStr}" fill="none" stroke="var(--coral)" stroke-width="2.5" stroke-linecap="round"/>
+    ${ip.map((p,i)=>`<circle cx="${p.x}" cy="${p.y}" r="4" fill="var(--coral)" class="lc-dot" data-v="${igData[i].toLocaleString()}" data-p="IG"/>`).join('')}`:''}
+    ${showTH?`<path d="${tpStr} L${W-PAD} ${H-PAD} L${PAD} ${H-PAD}Z" fill="url(#gTH)"/>
+    <path d="${tpStr}" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round"/>
+    ${tp.map((p,i)=>`<circle cx="${p.x}" cy="${p.y}" r="4" fill="var(--blue)" class="lc-dot" data-v="${thData[i].toLocaleString()}" data-p="Threads"/>`).join('')}`:''}
+  `;
+  svg.querySelectorAll('.lc-dot').forEach(d=>{
+    d.addEventListener('mouseenter',e=>{
+      const t=document.getElementById('tip');
+      t.textContent=`${d.dataset.p}: ${d.dataset.v}`;
+      t.style.display='block';t.style.left=(e.clientX+14)+'px';t.style.top=(e.clientY-32)+'px';
+    });
+    d.addEventListener('mouseleave',()=>{document.getElementById('tip').style.display='none';});
+  });
+}
+drawLC();
+function toggleIG(){showIG=!showIG;document.getElementById('btnIG').classList.toggle('on',showIG);drawLC();}
+function toggleTH(){showTH=!showTH;document.getElementById('btnTH').classList.toggle('on',showTH);drawLC();}
+document.addEventListener('mousemove',e=>{
+  const t=document.getElementById('tip');
+  if(t.style.display==='block'){t.style.left=(e.clientX+14)+'px';t.style.top=(e.clientY-32)+'px';}
+});
+
+// ===== HAMBURGER MENU =====
+const ham = document.getElementById('navHamburger');
+const navLinks = document.getElementById('navLinks');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  navLinks.classList.toggle('open');
+  document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+});
+document.querySelectorAll('.nav-item').forEach(a => {
+  a.addEventListener('click', () => {
+    ham.classList.remove('open');
+    navLinks.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+</script>
+</body>
+</html>
